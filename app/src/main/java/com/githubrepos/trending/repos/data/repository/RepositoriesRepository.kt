@@ -15,7 +15,7 @@ class RepositoriesRepository(val repoApi: RepositoriesApi) {
 
     suspend fun getRepositories(fetchType: DataFetchType = DataFetchType.Force): List<Repository> {
         return withContext(Dispatchers.Default){
-            return@withContext fetchFromStaticData()
+            return@withContext fetchFromRemote()
         }
     }
 
