@@ -72,7 +72,7 @@ class RepositoriesFragment : BaseFragment() {
             swipeToRefresh.isRefreshing = true
         }
 
-        retry.setOnClickListener {   viewModel.refresh() }
+        retry.setOnClickListener { viewModel.refresh() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
