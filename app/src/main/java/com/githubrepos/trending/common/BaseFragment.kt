@@ -60,6 +60,7 @@ abstract class BaseFragment : Fragment() {
 
     override fun onDestroyView() {
         unloadKoinModules(modulesToLoad)
+        compositeSubscription.clear()
         super.onDestroyView()
         "onDestroyView called ...".logD(this)
     }

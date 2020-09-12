@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="repository"
+            type="com.githubrepos.trending.repos.data.Repository" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="@dimen/material_baseline_grid_1x"
+        app:cardElevation="@dimen/material_baseline_grid_0.5x">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/material_baseline_grid_2x">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{repository.description}"
+                android:textSize="@dimen/material_typography_dense_subheading_text_size"
+                android:visibility="@{repository.description.trim().length() == 0 ? View.GONE : View.VISIBLE}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="titledskjkjffdjknfdbdfb;nkbdcsjncdjndsjsdknvsdvlnsvsfjbvfsjb" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/language"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/material_baseline_grid_2x"
+                android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                android:drawableStart="@drawable/ic_red_circle"
+                android:drawablePadding="@dimen/material_baseline_grid_2x"
+                android:text="@{repository.language}"
+                android:textSize="@dimen/material_typography_dense_subheading_text_size"
+                android:visibility="@{repository.language.trim().length() == 0 ? View.GONE : View.VISIBLE}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                tools:text="Go" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/stars"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/material_baseline_grid_2x"
+                android:layout_marginTop="@dimen/material_baseline_grid_2x"
+                android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                android:drawableStart="@drawable/ic_star_yellow"
+                android:drawablePadding="@dimen/material_baseline_grid_2x"
+                android:text="@{repository.stars}"
+                android:textSize="@dimen/material_typography_dense_subheading_text_size"
+                android:visibility="@{repository.stars.trim().length() == 0 ? View.GONE : View.VISIBLE}"
+                app:layout_constraintLeft_toRightOf="@id/language"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                app:layout_constraintWidth_default="spread"
+                tools:text="45678" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/forks"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/material_baseline_grid_2x"
+                android:layout_marginTop="@dimen/material_baseline_grid_2x"
+                android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+                android:drawableStart="@drawable/ic_fork_black"
+                android:drawablePadding="@dimen/material_baseline_grid_2x"
+                android:text="@{repository.forks}"
+                android:textSize="@dimen/material_typography_dense_subheading_text_size"
+                android:visibility="@{repository.forks.trim().length() == 0 ? View.GONE : View.VISIBLE}"
+                app:layout_constraintLeft_toRightOf="@id/stars"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                app:layout_constraintWidth_default="spread"
+                tools:text="45678" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
