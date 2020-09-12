@@ -1,10 +1,9 @@
 package com.githubrepos.trending.repos.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.lifecycle.Observer
+import com.githubrepos.trending.R
 import com.githubrepos.trending.common.BaseFragment
 import com.githubrepos.trending.databinding.FragmentRepositoriesBinding
 import com.githubrepos.trending.repos.di.repositoriesModule
@@ -16,18 +15,22 @@ class RepositoriesFragment : BaseFragment() {
 
     lateinit var binding: FragmentRepositoriesBinding
 
-    val viewModel : RepositoriesViewModel by lazy {
+    val viewModel: RepositoriesViewModel by lazy {
         requireActivity().currentScope.get<RepositoriesViewModel>()
     }
 
-    val repositoriesListAdapter : RepositoriesAdapter by lazy {
+    val repositoriesListAdapter: RepositoriesAdapter by lazy {
         requireActivity().currentScope.get<RepositoriesAdapter>()
     }
 
     override val modulesToLoad: List<Module> = listOf(repositoriesModule)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding =  FragmentRepositoriesBinding.inflate(inflater)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentRepositoriesBinding.inflate(inflater)
         return binding.root
     }
 
@@ -59,5 +62,16 @@ class RepositoriesFragment : BaseFragment() {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_repos, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.refresh) {
+            viewModel.refresh()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
 }
