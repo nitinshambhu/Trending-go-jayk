@@ -5,9 +5,11 @@ import android.view.*
 import androidx.lifecycle.Observer
 import com.githubrepos.trending.R
 import com.githubrepos.trending.common.BaseFragment
+import com.githubrepos.trending.common.LoadingState
 import com.githubrepos.trending.databinding.FragmentRepositoriesBinding
 import com.githubrepos.trending.repos.di.repositoriesModule
 import kotlinx.android.synthetic.main.fragment_repositories.*
+import kotlinx.android.synthetic.main.layout_shimmer_place_holder_list.view.*
 import org.koin.android.scope.currentScope
 import org.koin.core.module.Module
 
@@ -52,6 +54,13 @@ class RepositoriesFragment : BaseFragment() {
         viewModel.repositoriesLiveData.observe(viewLifecycleOwner, Observer {
             swipeToRefresh.isRefreshing = false
             repositoriesListAdapter.setResultList(it)
+        })
+
+        viewModel.loadingStateLiveData.observe(viewLifecycleOwner, Observer { loadingState ->
+            when (loadingState) {
+                is LoadingState.InProgress -> shimmer.shimmerFrameLayout.startShimmerAnimation()
+                is LoadingState.Done -> shimmer.shimmerFrameLayout.stopShimmerAnimation()
+            }
         })
 
         swipeToRefresh.setOnRefreshListener {

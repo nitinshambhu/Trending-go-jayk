@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/material_baseline_grid_2x">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/material_list_avatar_size"
+            android:layout_height="@dimen/material_list_avatar_size"
+            app:cardBackgroundColor="@color/material_color_grey_500"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scaleType="fitCenter" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/material_baseline_grid_2x"
+            android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+            android:background="@color/material_color_grey_500"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/material_typography_locale_body_1_text_size"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="some long text some long text some long text some long text" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/material_baseline_grid_2x"
+            android:layout_marginTop="@dimen/material_baseline_grid_1x"
+            android:layout_marginEnd="@dimen/material_baseline_grid_2x"
+            android:background="@color/material_color_grey_500"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="@dimen/material_typography_dense_title_text_size"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/author"
+            tools:text="some long text some long text some long text some long text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

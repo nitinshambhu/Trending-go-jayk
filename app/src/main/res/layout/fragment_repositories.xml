@@ -5,10 +5,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include
+            android:id="@+id/shimmer"
+            layout="@layout/layout_shimmer_place_holder_list" />
+
+        <include
+            android:id="@+id/errorState"
+            android:visibility="gone"
+            layout="@layout/layout_no_internet_connection_error_state" />
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeToRefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
 
             <ExpandableListView
                 android:id="@+id/reposList"
