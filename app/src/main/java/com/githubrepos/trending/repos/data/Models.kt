@@ -10,7 +10,7 @@ data class Repository(
     val name: String = "",
     val avatar: String = "",
     val description: String = "",
-    val language: String = "",
+    val language: String? = "",
     val stars: String = "",
     val forks: String = ""
 )
