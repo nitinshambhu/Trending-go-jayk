@@ -34,7 +34,6 @@ abstract class BaseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadKoinModules(modulesToLoad)
         "onViewCreated called ...".logD(this)
     }
 
@@ -59,7 +58,6 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        unloadKoinModules(modulesToLoad)
         compositeSubscription.clear()
         super.onDestroyView()
         "onDestroyView called ...".logD(this)
