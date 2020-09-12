@@ -6,7 +6,7 @@ import com.githubrepos.trending.common.Feature
 import com.githubrepos.trending.repos.api.RepositoriesApi
 import com.githubrepos.trending.repos.data.Repository
 import com.githubrepos.trending.repos.data.db.dao.RepositoriesDao
-import com.githubrepos.trending.repos.data.staticRepositoriesData
+import com.githubrepos.trending.repos.data.STATIC_REPOSITORIES_DATA
 import com.githubrepos.trending.util.logD
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -57,7 +57,7 @@ class RepositoriesRepository(
 
     suspend fun fetchFromStaticData(): List<Repository> {
         val collectionType: Type = object : TypeToken<List<Repository>>() {}.type
-        return Gson().fromJson(staticRepositoriesData, collectionType)
+        return Gson().fromJson(STATIC_REPOSITORIES_DATA, collectionType)
     }
 
 }

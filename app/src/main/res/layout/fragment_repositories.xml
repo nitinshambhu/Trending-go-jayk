@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+
+        <variable
+            name="uiState"
+            type="com.githubrepos.trending.repos.data.RepositoriesUiState" />
+
+        <import type="android.view.View" />
+    </data>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <include
             android:id="@+id/shimmer"
-            layout="@layout/layout_shimmer_place_holder_list" />
+            layout="@layout/layout_shimmer_place_holder_list"
+            android:visibility="@{uiState.showShimmerEffect ? View.VISIBLE : View.GONE}" />
 
         <include
             android:id="@+id/errorState"
-            android:visibility="gone"
-            layout="@layout/layout_no_internet_connection_error_state" />
+            layout="@layout/layout_no_internet_connection_error_state"
+            android:visibility="@{uiState.showErrorState ? View.VISIBLE : View.GONE}" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeToRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:visibility="@{uiState.showList ? View.VISIBLE : View.GONE}">
 
             <ExpandableListView
                 android:id="@+id/reposList"

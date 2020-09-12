@@ -9,6 +9,7 @@ import com.githubrepos.trending.common.LoadingState
 import com.githubrepos.trending.databinding.FragmentRepositoriesBinding
 import com.githubrepos.trending.repos.di.repositoriesModule
 import kotlinx.android.synthetic.main.fragment_repositories.*
+import kotlinx.android.synthetic.main.layout_no_internet_connection_error_state.*
 import kotlinx.android.synthetic.main.layout_shimmer_place_holder_list.view.*
 import org.koin.android.scope.currentScope
 import org.koin.core.module.Module
@@ -38,6 +39,7 @@ class RepositoriesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.uiState = viewModel.uiState
         reposList.setAdapter(repositoriesListAdapter)
         initListeners()
         viewModel.getList()
@@ -52,14 +54,16 @@ class RepositoriesFragment : BaseFragment() {
         )
 
         viewModel.repositoriesLiveData.observe(viewLifecycleOwner, Observer {
-            swipeToRefresh.isRefreshing = false
             repositoriesListAdapter.setResultList(it)
         })
 
         viewModel.loadingStateLiveData.observe(viewLifecycleOwner, Observer { loadingState ->
             when (loadingState) {
                 is LoadingState.InProgress -> shimmer.shimmerFrameLayout.startShimmerAnimation()
-                is LoadingState.Done -> shimmer.shimmerFrameLayout.stopShimmerAnimation()
+                is LoadingState.Done -> {
+                    swipeToRefresh.isRefreshing = false
+                    shimmer.shimmerFrameLayout.stopShimmerAnimation()
+                }
             }
         })
 
@@ -68,7 +72,7 @@ class RepositoriesFragment : BaseFragment() {
             swipeToRefresh.isRefreshing = true
         }
 
-
+        retry.setOnClickListener {   viewModel.refresh() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

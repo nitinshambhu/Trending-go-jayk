@@ -7,7 +7,7 @@ import com.githubrepos.trending.db.AppDatabase
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
-private const val PREFERENCES_FILE_KEY = "com.github.trending"
+private const val PREFERENCES_NAME = "com.github.trending"
 
 val appModule = module {
     single { AppDatabase.get(context = androidContext()) }
@@ -16,4 +16,4 @@ val appModule = module {
 }
 
 private fun provideSettingsPreferences(context: Context): SharedPreferences =
-    context.getSharedPreferences(PREFERENCES_FILE_KEY, Context.MODE_PRIVATE)
+    context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)

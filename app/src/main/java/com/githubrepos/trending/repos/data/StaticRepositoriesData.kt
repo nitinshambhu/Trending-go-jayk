@@ -1,7 +1,7 @@
 package com.githubrepos.trending.repos.data
 
 
-val staticRepositoriesData = "[\n" +
+val STATIC_REPOSITORIES_DATA = "[\n" +
             "  {\n" +
             "    \"author\": \"xingshaocheng\",\n" +
             "    \"name\": \"architect-awesome\",\n" +
