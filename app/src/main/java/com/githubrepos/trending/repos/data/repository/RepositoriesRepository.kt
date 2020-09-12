@@ -1,8 +1,6 @@
 package com.githubrepos.trending.repos.data.repository
 
-import com.githubrepos.trending.common.CacheSession
-import com.githubrepos.trending.common.DataFetchType
-import com.githubrepos.trending.common.Feature
+import com.githubrepos.trending.common.*
 import com.githubrepos.trending.repos.api.RepositoriesApi
 import com.githubrepos.trending.repos.data.Repository
 import com.githubrepos.trending.repos.data.db.dao.RepositoriesDao
@@ -20,40 +18,35 @@ class RepositoriesRepository(
     private val cacheSession: CacheSession
 ) {
 
-    suspend fun getRepositories(fetchType: DataFetchType = DataFetchType.Force): List<Repository> {
-        return withContext(Dispatchers.Default) {
+    suspend fun getRepositories(fetchType: DataFetchType = DataFetchType.Force): ApiResponse<List<Repository>> =
+        withContext(Dispatchers.Default) {
 
-            if (cacheSession.isTimedOutFor(Feature.GitHubTrendingRepos) || fetchType is DataFetchType.Force) {
-                val fetchedFinal = fetchFromRemote()
-                "fetchedFinal from remote .... $fetchedFinal".logD("Test===")
-                return@withContext fetchedFinal
-            } else {
-                val fetchedFinal = fetchFromDatabase()
-                "fetchedFinal from DB.... $fetchedFinal".logD("Test===")
-                return@withContext fetchedFinal
+            return@withContext apiResponseFrom {
+
+                val redirectRequestToRemote =
+                    cacheSession.isTimedOutFor(feature = Feature.GitHubTrendingRepos)
+                            || fetchType is DataFetchType.Force
+
+                return@apiResponseFrom if (redirectRequestToRemote) fetchFromRemote()
+                else fetchFromDatabase()
             }
-
         }
-    }
+
 
     suspend fun fetchFromRemote(): List<Repository> {
+        "Fetching from remote ... ".logD("Test===")
         val repositoryList = repoApi.getRepositories()
-        "repositoryList received size = ${repositoryList.size}".logD("Test===")
-
-        return if (repositoryList.isNotEmpty()) {
-            repoDao.clear()
-            "Dao cleared ....".logD("Test===")
-            cacheSession.startFor(Feature.GitHubTrendingRepos)
-            "started cache session ....".logD("Test===")
-            repoDao.insertAll(repositoryList)
-            "inserted all ....".logD("Test===")
-            repositoryList
-        } else {
-            fetchFromDatabase()
-        }
+        "Fetched list size = ${repositoryList.size}".logD("Test===")
+        repoDao.clear()
+        cacheSession.startFor(Feature.GitHubTrendingRepos)
+        repoDao.insertAll(repositoryList)
+        return repositoryList
     }
 
-    suspend fun fetchFromDatabase(): List<Repository> = repoDao.all()
+    suspend fun fetchFromDatabase(): List<Repository> {
+        "Fetching from Database ... ".logD("Test===")
+        return repoDao.all()
+    }
 
     suspend fun fetchFromStaticData(): List<Repository> {
         val collectionType: Type = object : TypeToken<List<Repository>>() {}.type

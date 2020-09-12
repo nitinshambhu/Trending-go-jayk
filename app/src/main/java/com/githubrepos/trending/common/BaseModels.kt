@@ -9,3 +9,8 @@ sealed class LoadingState {
     object InProgress : LoadingState()
     object Done : LoadingState()
 }
+
+sealed class ApiResponse<out T> {
+    data class Success<out T>(val data: T) : ApiResponse<T>()
+    class Error<out T>(message: String) : ApiResponse<T>()
+}

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.githubrepos.trending.common.DataFetchType
 import com.githubrepos.trending.common.LoadingState
+import com.githubrepos.trending.common.apiResponseHandler
 import com.githubrepos.trending.repos.data.RepositoriesUiState
 import com.githubrepos.trending.repos.data.Repository
 import com.githubrepos.trending.repos.data.repository.RepositoriesRepository
@@ -14,34 +15,55 @@ import kotlinx.coroutines.launch
 
 class RepositoriesViewModel(val repo: RepositoriesRepository) : ViewModel() {
 
-    private val repositoriesMutableLiveData = MutableLiveData<List<Repository>>()
-    private val loadingStateMutableLiveData = MutableLiveData<LoadingState>()
+    private val _repositoriesMutableLiveData = MutableLiveData<List<Repository>>()
+    private val _loadingStateMutableLiveData = MutableLiveData<LoadingState>()
 
     val uiState = RepositoriesUiState()
-    val repositoriesLiveData: LiveData<List<Repository>> = repositoriesMutableLiveData
-    val loadingStateLiveData: LiveData<LoadingState> = loadingStateMutableLiveData
+    val repositoriesLiveData: LiveData<List<Repository>> = _repositoriesMutableLiveData
+    val loadingStateLiveData: LiveData<LoadingState> = _loadingStateMutableLiveData
 
-    fun getList()  = fetchData()
+    fun getList() = fetchData()
 
-    fun refresh()  = fetchData(fetchType = DataFetchType.Force)
+    fun refresh() = fetchData(fetchType = DataFetchType.Force)
 
     fun fetchData(fetchType: DataFetchType = DataFetchType.Normal) {
+
         viewModelScope.launch(Dispatchers.Main) {
+
             setLoadingState(LoadingState.InProgress)
-            val repoList = repo.getRepositories(fetchType = fetchType)
-            uiState.apply { showList = true }
-            repositoriesMutableLiveData.value = repoList
-            setLoadingState(LoadingState.Done)
+
+            apiResponseHandler(
+                status = repo.getRepositories(),
+                onSuccess = { listOfRepos -> handleSuccess(reposList = listOfRepos) },
+                onError = { handleError() }
+            )
         }
     }
 
-    fun setLoadingState(state : LoadingState) {
+    fun handleSuccess(reposList : List<Repository>) {
+        uiState.apply {
+            showList = true
+            showErrorState = false
+        }
+        _repositoriesMutableLiveData.value = reposList
+        setLoadingState(LoadingState.Done)
+    }
+
+    fun handleError() {
+        uiState.apply {
+            showErrorState = true
+            showList = false
+        }
+        setLoadingState(LoadingState.Done)
+    }
+
+    fun setLoadingState(state: LoadingState) {
         if (state is LoadingState.InProgress) {
             uiState.apply {
                 showErrorState = false
                 showList = false
             }
         }
-        loadingStateMutableLiveData.value = state
+        _loadingStateMutableLiveData.value = state
     }
 }
