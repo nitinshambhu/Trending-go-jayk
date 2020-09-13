@@ -8,7 +8,7 @@ import com.githubrepos.trending.common.util.apiResponseFrom
 import com.githubrepos.trending.common.util.logD
 import com.githubrepos.trending.repos.api.RepositoriesApi
 import com.githubrepos.trending.repos.data.Repository
-import com.githubrepos.trending.repos.data.db.dao.RepositoriesDao
+import com.githubrepos.trending.repos.data.dao.RepositoriesDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

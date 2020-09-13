@@ -1,4 +1,4 @@
-package com.githubrepos.trending.repos.data.db.dao
+package com.githubrepos.trending.repos.data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -13,7 +13,7 @@ interface RepositoriesDao {
     suspend fun all(): List<Repository>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(order: List<Repository>)
+    suspend fun insertAll(order: List<Repository>)
 
     @Query("DELETE FROM TrendingRepositories")
     suspend fun clear()

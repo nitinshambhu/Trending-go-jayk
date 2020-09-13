@@ -3,6 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+
+apply from: 'tests.gradle'
+
 android {
     compileSdkVersion 29
 
@@ -38,6 +41,12 @@ android {
 
     testOptions {
         unitTests.returnDefaultValues = true
+    }
+
+    configurations.all {
+        resolutionStrategy {
+            exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug"
+        }
     }
 }
 
@@ -98,6 +107,8 @@ dependencies {
     testImplementation "android.arch.core:core-testing:1.1.1"
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation "android.arch.core:core-testing:1.1.1"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines_core_version"
 
 }

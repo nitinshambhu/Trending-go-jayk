@@ -1,4 +1,4 @@
-package com.githubrepos.trending.repos.ui.repository
+package com.githubrepos.trending.repos.data.repository
 
 import com.githubrepos.trending.common.data.DataFetchType
 import com.githubrepos.trending.common.util.CacheSession
@@ -6,8 +6,7 @@ import com.githubrepos.trending.common.util.Feature
 import com.githubrepos.trending.common.util.asSuccess
 import com.githubrepos.trending.repos.api.RepositoriesApi
 import com.githubrepos.trending.repos.data.Repository
-import com.githubrepos.trending.repos.data.db.dao.RepositoriesDao
-import com.githubrepos.trending.repos.data.repository.RepositoriesRepository
+import com.githubrepos.trending.repos.data.dao.RepositoriesDao
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking

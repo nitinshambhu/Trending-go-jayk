@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.githubrepos.trending.repos.data.Repository
-import com.githubrepos.trending.repos.data.db.dao.RepositoriesDao
+import com.githubrepos.trending.repos.data.dao.RepositoriesDao
 
 @Database(entities = [Repository::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
