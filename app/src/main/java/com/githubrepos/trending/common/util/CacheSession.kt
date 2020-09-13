@@ -15,7 +15,7 @@ class CacheSession(private val preferences: SharedPreferences) {
     fun isTimedOutFor(feature: Feature): Boolean {
         val savedTimestamp = preferences.getLong(feature.name, 0L)
         val timeoutConfigured = feature.timeOutInMillis
-        return (getCurrentTimestamp() - savedTimestamp) <= timeoutConfigured
+        return (getCurrentTimestamp() - savedTimestamp) >= timeoutConfigured
     }
 
     fun getCurrentTimestamp() = SystemClock.elapsedRealtime()

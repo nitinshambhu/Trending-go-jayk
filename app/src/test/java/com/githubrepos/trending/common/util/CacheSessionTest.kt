@@ -49,7 +49,7 @@ class CacheSessionTest : BaseTest() {
     }
 
     @Test
-    fun `Starting cache session check timeout method returns false when the time difference is more than timeout`() {
+    fun `Starting cache session check timeout method returns true when the time difference is more than timeout`() {
         val feature = mockk<Feature>().apply {
             every { name } returns "Test"
             every { timeOutInMillis } returns 10
@@ -58,7 +58,7 @@ class CacheSessionTest : BaseTest() {
         every { SystemClock.elapsedRealtime() } returns 40 //current timestamp
         every { preferences.getLong(any(), any()) } returns 20 //saved timestamp
 
-        assertFalse(cacheSession.isTimedOutFor(feature = feature))
+        assertTrue(cacheSession.isTimedOutFor(feature = feature))
 
         verify {
             preferences.getLong("Test", 0L)
@@ -66,7 +66,7 @@ class CacheSessionTest : BaseTest() {
     }
 
     @Test
-    fun `Starting cache session check timeout method returns true when the time difference is less than timeout`() {
+    fun `Starting cache session check timeout method returns false when the time difference is less than timeout`() {
         val feature = mockk<Feature>().apply {
             every { name } returns "Test"
             every { timeOutInMillis } returns 10
@@ -75,7 +75,7 @@ class CacheSessionTest : BaseTest() {
         every { SystemClock.elapsedRealtime() } returns 40 //current timestamp
         every { preferences.getLong(any(), any()) } returns 35 //saved timestamp
 
-        assertTrue(cacheSession.isTimedOutFor(feature = feature))
+        assertFalse(cacheSession.isTimedOutFor(feature = feature))
 
         verify {
             preferences.getLong("Test", 0L)
