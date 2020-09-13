@@ -1,10 +1,12 @@
 package com.githubrepos.trending.repos.data
 
+import android.view.View
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.githubrepos.trending.common.util.visibilityIf
 
 @Entity(tableName = "TrendingRepositories")
 data class Repository(
@@ -19,24 +21,26 @@ data class Repository(
 )
 
 data class RepositoriesUiState(
-    @get: Bindable var showShimmerEffect: Boolean = true
+    @get: Bindable var showShimmerEffectVisibility: Int = View.VISIBLE,
+    @get: Bindable var listVisibility: Int = View.GONE,
+    @get: Bindable var errorStateVisibility: Int = View.GONE
 ) : BaseObservable() {
 
-    @get: Bindable
     var showErrorState: Boolean = false
         set(value) {
             field = value
-            showShimmerEffect = !field && !showList
-            notifyPropertyChanged(BR.showShimmerEffect)
-            notifyPropertyChanged(BR.showErrorState)
+            showShimmerEffectVisibility = visibilityIf(visible = !value && !showList)
+            errorStateVisibility = visibilityIf(visible = value)
+            notifyPropertyChanged(BR.showShimmerEffectVisibility)
+            notifyPropertyChanged(BR.errorStateVisibility)
         }
 
-    @get: Bindable
     var showList: Boolean = false
         set(value) {
             field = value
-            showShimmerEffect = !field && !showErrorState
-            notifyPropertyChanged(BR.showShimmerEffect)
-            notifyPropertyChanged(BR.showList)
+            showShimmerEffectVisibility = visibilityIf(visible = !value && !showErrorState)
+            listVisibility = visibilityIf(visible = value)
+            notifyPropertyChanged(BR.showShimmerEffectVisibility)
+            notifyPropertyChanged(BR.listVisibility)
         }
 }

@@ -17,18 +17,18 @@
         <include
             android:id="@+id/shimmer"
             layout="@layout/layout_shimmer_place_holder_list"
-            android:visibility="@{uiState.showShimmerEffect ? View.VISIBLE : View.GONE}" />
+            android:visibility="@{uiState.showShimmerEffectVisibility}" />
 
         <include
             android:id="@+id/errorState"
             layout="@layout/layout_no_internet_connection_error_state"
-            android:visibility="@{uiState.showErrorState ? View.VISIBLE : View.GONE}" />
+            android:visibility="@{uiState.errorStateVisibility}" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeToRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{uiState.showList ? View.VISIBLE : View.GONE}">
+            android:visibility="@{uiState.listVisibility}">
 
             <ExpandableListView
                 android:id="@+id/reposList"
