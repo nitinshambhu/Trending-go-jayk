@@ -12,5 +12,5 @@ sealed class LoadingState {
 
 sealed class ApiResponse<out T> {
     data class Success<out T>(val data: T) : ApiResponse<T>()
-    class Error<out T>(message: String) : ApiResponse<T>()
+    class Error<out T>(val message: String) : ApiResponse<T>()
 }
