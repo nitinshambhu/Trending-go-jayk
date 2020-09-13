@@ -1,9 +1,9 @@
-package com.githubrepos.trending.di
+package com.githubrepos.trending.common.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.githubrepos.trending.common.CacheSession
-import com.githubrepos.trending.db.AppDatabase
+import com.githubrepos.trending.common.util.CacheSession
+import com.githubrepos.trending.common.db.AppDatabase
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 

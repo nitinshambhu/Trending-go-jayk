@@ -1,4 +1,4 @@
-package com.githubrepos.trending.common
+package com.githubrepos.trending.common.data
 
 sealed class DataFetchType {
     object Normal : DataFetchType()

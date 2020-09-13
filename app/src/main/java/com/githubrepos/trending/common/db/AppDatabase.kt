@@ -1,4 +1,4 @@
-package com.githubrepos.trending.db
+package com.githubrepos.trending.common.db
 
 import android.content.Context
 import androidx.room.Database

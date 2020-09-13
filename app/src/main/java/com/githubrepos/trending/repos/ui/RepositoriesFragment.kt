@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
 import com.githubrepos.trending.R
-import com.githubrepos.trending.common.BaseFragment
-import com.githubrepos.trending.common.LoadingState
+import com.githubrepos.trending.common.fragment.BaseFragment
+import com.githubrepos.trending.common.data.LoadingState
 import com.githubrepos.trending.databinding.FragmentRepositoriesBinding
 import com.githubrepos.trending.repos.di.repositoriesModule
 import kotlinx.android.synthetic.main.fragment_repositories.*

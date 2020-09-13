@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.githubrepos.trending.common.DataFetchType
-import com.githubrepos.trending.common.LoadingState
-import com.githubrepos.trending.common.apiResponseHandler
+import com.githubrepos.trending.common.data.DataFetchType
+import com.githubrepos.trending.common.data.LoadingState
+import com.githubrepos.trending.common.util.apiResponseHandler
 import com.githubrepos.trending.repos.data.RepositoriesUiState
 import com.githubrepos.trending.repos.data.Repository
 import com.githubrepos.trending.repos.data.repository.RepositoriesRepository

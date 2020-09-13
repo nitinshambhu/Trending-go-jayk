@@ -1,4 +1,4 @@
-package com.githubrepos.trending.util
+package com.githubrepos.trending.common.util
 
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat

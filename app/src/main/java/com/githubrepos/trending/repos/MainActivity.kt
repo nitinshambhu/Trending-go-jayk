@@ -1,4 +1,4 @@
-package com.githubrepos.trending
+package com.githubrepos.trending.repos
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

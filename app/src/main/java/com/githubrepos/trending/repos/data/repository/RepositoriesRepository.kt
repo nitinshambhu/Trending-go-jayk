@@ -1,11 +1,15 @@
 package com.githubrepos.trending.repos.data.repository
 
-import com.githubrepos.trending.common.*
+import com.githubrepos.trending.common.data.ApiResponse
+import com.githubrepos.trending.common.data.DataFetchType
+import com.githubrepos.trending.common.util.CacheSession
+import com.githubrepos.trending.common.util.Feature
+import com.githubrepos.trending.common.util.apiResponseFrom
 import com.githubrepos.trending.repos.api.RepositoriesApi
 import com.githubrepos.trending.repos.data.Repository
 import com.githubrepos.trending.repos.data.db.dao.RepositoriesDao
 import com.githubrepos.trending.repos.data.STATIC_REPOSITORIES_DATA
-import com.githubrepos.trending.util.logD
+import com.githubrepos.trending.common.util.logD
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +42,7 @@ class RepositoriesRepository(
         val repositoryList = repoApi.getRepositories()
         "Fetched list size = ${repositoryList.size}".logD("Test===")
         repoDao.clear()
-        cacheSession.startFor(Feature.GitHubTrendingRepos)
+        cacheSession.startTimerFor(Feature.GitHubTrendingRepos)
         repoDao.insertAll(repositoryList)
         return repositoryList
     }

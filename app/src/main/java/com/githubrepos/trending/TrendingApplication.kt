@@ -1,8 +1,8 @@
 package com.githubrepos.trending
 
 import android.app.Application
-import com.githubrepos.trending.di.appModule
-import com.githubrepos.trending.di.networkModule
+import com.githubrepos.trending.common.di.appModule
+import com.githubrepos.trending.common.di.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 

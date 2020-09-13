@@ -35,6 +35,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 ext {
@@ -43,6 +47,7 @@ ext {
     koin_version = '2.1.6'
     lifecycle_version = '2.2.0'
     room_version = '2.2.5'
+    mockk_version = '1.10.0'
 }
 
 dependencies {
@@ -86,6 +91,8 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
 
     testImplementation 'junit:junit:4.12'
+    testImplementation "io.mockk:mockk:$mockk_version"
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 

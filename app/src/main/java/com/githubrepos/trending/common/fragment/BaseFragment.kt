@@ -1,15 +1,13 @@
-package com.githubrepos.trending.common
+package com.githubrepos.trending.common.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.githubrepos.trending.util.logD
+import com.githubrepos.trending.common.util.logD
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import org.koin.core.context.loadKoinModules
-import org.koin.core.context.unloadKoinModules
 import org.koin.core.module.Module
 
 abstract class BaseFragment : Fragment() {

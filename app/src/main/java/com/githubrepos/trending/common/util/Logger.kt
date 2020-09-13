@@ -1,4 +1,4 @@
-package com.githubrepos.trending.util
+package com.githubrepos.trending.common.util
 
 import android.util.Log
 import com.githubrepos.trending.BuildConfig

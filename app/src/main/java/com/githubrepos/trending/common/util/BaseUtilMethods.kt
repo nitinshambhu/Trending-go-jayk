@@ -1,4 +1,6 @@
-package com.githubrepos.trending.common
+package com.githubrepos.trending.common.util
+
+import com.githubrepos.trending.common.data.ApiResponse
 
 fun <T> T.asSuccess(): ApiResponse<T> = ApiResponse.Success(this)
 

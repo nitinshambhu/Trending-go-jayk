@@ -1,4 +1,4 @@
-package com.githubrepos.trending.di
+package com.githubrepos.trending.common.di
 
 import android.content.Context
 import com.githubrepos.trending.R
