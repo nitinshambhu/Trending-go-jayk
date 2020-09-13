@@ -16,7 +16,7 @@ class BaseUtilMethodsTest : BaseTest() {
     lateinit var randomClass: RandomClass
 
     @Test
-    fun `apiResponseFrom method should return ApiResponse Success on executing a method without exceptions`() {
+    fun `Method apiResponseFrom should return ApiResponse Success on executing a method without exceptions`() {
         val list = listOf<Int>(1)
         coEvery { randomClass.performAction() } returns list
         runBlockingTest {
@@ -27,7 +27,7 @@ class BaseUtilMethodsTest : BaseTest() {
     }
 
     @Test
-    fun `apiResponseFrom method should return ApiResponse Error on executing a method that throws exceptions`() {
+    fun `Method apiResponseFrom should return ApiResponse Error on executing a method that throws exceptions`() {
 
         coEvery { randomClass.performAction() } throws RuntimeException("Test")
 
@@ -39,7 +39,7 @@ class BaseUtilMethodsTest : BaseTest() {
     }
 
     @Test
-    fun `apiResponseHandler method should execute success block when ApiResponse is Success`() {
+    fun `Method apiResponseHandler  should execute success block when ApiResponse is Success`() {
 
         val apiResponse = listOf<Int>().asSuccess()
 
@@ -55,7 +55,7 @@ class BaseUtilMethodsTest : BaseTest() {
     }
 
     @Test
-    fun `apiResponseHandler method should execute error block when ApiResponse is Error`() {
+    fun `Method apiResponseHandler  should execute error block when ApiResponse is Error`() {
 
         val apiResponse = Exception("Test").asError<List<Int>>()
 
