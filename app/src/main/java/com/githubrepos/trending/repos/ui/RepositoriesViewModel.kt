@@ -33,7 +33,7 @@ class RepositoriesViewModel(val repo: RepositoriesRepository) : ViewModel() {
             setLoadingState(LoadingState.InProgress)
 
             apiResponseHandler(
-                status = repo.getRepositories(),
+                status = repo.getRepositories(fetchType = fetchType),
                 onSuccess = { listOfRepos -> handleSuccess(reposList = listOfRepos) },
                 onError = { handleError() }
             )

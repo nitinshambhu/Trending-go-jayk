@@ -22,7 +22,7 @@ class RepositoriesRepository(
     private val cacheSession: CacheSession
 ) {
 
-    suspend fun getRepositories(fetchType: DataFetchType = DataFetchType.Force): ApiResponse<List<Repository>> =
+    suspend fun getRepositories(fetchType: DataFetchType = DataFetchType.Normal): ApiResponse<List<Repository>> =
         withContext(Dispatchers.Default) {
 
             return@withContext apiResponseFrom {
