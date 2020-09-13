@@ -5,16 +5,12 @@ import com.githubrepos.trending.common.data.DataFetchType
 import com.githubrepos.trending.common.util.CacheSession
 import com.githubrepos.trending.common.util.Feature
 import com.githubrepos.trending.common.util.apiResponseFrom
+import com.githubrepos.trending.common.util.logD
 import com.githubrepos.trending.repos.api.RepositoriesApi
 import com.githubrepos.trending.repos.data.Repository
 import com.githubrepos.trending.repos.data.db.dao.RepositoriesDao
-import com.githubrepos.trending.repos.data.STATIC_REPOSITORIES_DATA
-import com.githubrepos.trending.common.util.logD
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.lang.reflect.Type
 
 class RepositoriesRepository(
     private val repoApi: RepositoriesApi,
@@ -50,11 +46,6 @@ class RepositoriesRepository(
     suspend fun fetchFromDatabase(): List<Repository> {
         "Fetching from Database ... ".logD("Test===")
         return repoDao.all()
-    }
-
-    suspend fun fetchFromStaticData(): List<Repository> {
-        val collectionType: Type = object : TypeToken<List<Repository>>() {}.type
-        return Gson().fromJson(STATIC_REPOSITORIES_DATA, collectionType)
     }
 
 }
