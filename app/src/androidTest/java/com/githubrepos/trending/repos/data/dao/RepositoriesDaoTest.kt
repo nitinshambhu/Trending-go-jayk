@@ -54,9 +54,9 @@ open class RepositoriesDaoTest {
 
         runBlockingTest {
 
-            repositoriesDao.insertAll(getRepositoryList())
+            repositoriesDao.insertAllRepositories(getRepositoryList())
 
-            val repos = repositoriesDao.all()
+            val repos = repositoriesDao.allRepositories()
 
             assertTrue(repos.isNotEmpty())
             assertEquals(2, repos.size)
@@ -70,16 +70,16 @@ open class RepositoriesDaoTest {
         runBlockingTest {
 
             // confirmation of initial stage
-            repositoriesDao.insertAll(getRepositoryList())
-            val repos = repositoriesDao.all()
+            repositoriesDao.insertAllRepositories(getRepositoryList())
+            val repos = repositoriesDao.allRepositories()
             assertTrue(repos.isNotEmpty())
             assertEquals(2, repos.size)
 
             // action
-            repositoriesDao.clear()
+            repositoriesDao.clearAllRepositories()
 
             //verification
-            val emptyRepos = repositoriesDao.all()
+            val emptyRepos = repositoriesDao.allRepositories()
             assertTrue(emptyRepos.isEmpty())
             assertEquals(0, emptyRepos.size)
         }

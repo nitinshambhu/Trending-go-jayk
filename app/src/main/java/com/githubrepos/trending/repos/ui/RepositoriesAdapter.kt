@@ -8,8 +8,8 @@ import android.widget.BaseExpandableListAdapter
 import com.githubrepos.trending.databinding.LayoutReposListChildItemBinding
 import com.githubrepos.trending.databinding.LayoutReposListItemBinding
 import com.githubrepos.trending.repos.data.Repository
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.subjects.PublishSubject
 
 class RepositoriesAdapter(context: Context) : BaseExpandableListAdapter() {
 

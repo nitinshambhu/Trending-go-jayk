@@ -2,18 +2,20 @@ package com.githubrepos.trending.repos.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.githubrepos.trending.common.BaseViewModel
 import com.githubrepos.trending.common.data.DataFetchType
 import com.githubrepos.trending.common.data.LoadingState
 import com.githubrepos.trending.common.util.apiResponseHandler
+import com.githubrepos.trending.common.util.logD
 import com.githubrepos.trending.repos.data.RepositoriesUiState
 import com.githubrepos.trending.repos.data.Repository
 import com.githubrepos.trending.repos.data.repository.RepositoriesRepository
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RepositoriesViewModel(val repo: RepositoriesRepository) : ViewModel() {
+class RepositoriesViewModel(val repo: RepositoriesRepository) : BaseViewModel() {
 
     private val _repositoriesMutableLiveData = MutableLiveData<List<Repository>>()
     private val _loadingStateMutableLiveData = MutableLiveData<LoadingState>()
@@ -65,5 +67,21 @@ class RepositoriesViewModel(val repo: RepositoriesRepository) : ViewModel() {
             }
         }
         _loadingStateMutableLiveData.value = state
+    }
+
+    // Rx demonstration purpose only
+    fun fetchDataRx(fetchType: DataFetchType = DataFetchType.Normal) {
+        addDisposable(
+            repo.getRepositoriesRx(fetchType = fetchType)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    "Rx call list fetch success".logD("FromRx===")
+                    handleSuccess(it)
+                }, {
+                    "Error Thrown Rx = ${it.message}".logD("FromRx===")
+                    handleError()
+                })
+        )
+
     }
 }

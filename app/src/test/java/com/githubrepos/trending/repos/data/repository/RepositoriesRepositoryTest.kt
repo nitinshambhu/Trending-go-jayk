@@ -31,13 +31,13 @@ class RepositoriesRepositoryTest {
     @Test
     fun `Method fetch from DB should call dao and not remote api`() {
         val list = listOf<Repository>()
-        coEvery { repoDao.all() } returns list
+        coEvery { repoDao.allRepositories() } returns list
 
         runBlockingTest {
 
             repo.fetchFromDatabase()
 
-            coVerify(exactly = 1) { repoDao.all() }
+            coVerify(exactly = 1) { repoDao.allRepositories() }
             coVerify(exactly = 0) { repoApi.getRepositories() }
         }
     }
@@ -56,11 +56,11 @@ class RepositoriesRepositoryTest {
 
             coVerifyOrder {
                 repoApi.getRepositories()
-                repoDao.clear()
+                repoDao.clearAllRepositories()
                 cacheSession.startTimerFor(Feature.GitHubTrendingRepos)
-                repoDao.insertAll(list)
+                repoDao.insertAllRepositories(list)
             }
-            coVerify(exactly = 0) { repoDao.all() }
+            coVerify(exactly = 0) { repoDao.allRepositories() }
         }
     }
 

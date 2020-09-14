@@ -2,6 +2,7 @@ package com.githubrepos.trending.common.di
 
 import android.content.Context
 import com.githubrepos.trending.R
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -20,6 +21,7 @@ fun provideRetrofit(okHttpClient: OkHttpClient, context : Context): Retrofit {
         .baseUrl(context.getString(R.string.base_url))
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .build()
 }
 

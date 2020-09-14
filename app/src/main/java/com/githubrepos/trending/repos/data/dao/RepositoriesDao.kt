@@ -10,12 +10,21 @@ import com.githubrepos.trending.repos.data.Repository
 interface RepositoriesDao {
 
     @Query("SELECT * FROM TrendingRepositories")
-    suspend fun all(): List<Repository>
+    suspend fun allRepositories(): List<Repository>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(order: List<Repository>)
+    suspend fun insertAllRepositories(repositories: List<Repository>)
 
     @Query("DELETE FROM TrendingRepositories")
-    suspend fun clear()
+    suspend fun clearAllRepositories()
 
+    // Rx demonstration purpose only
+    @Query("SELECT * FROM TrendingRepositories")
+    fun allRepositoriesRx(): List<Repository>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllRepositoriesRx(repositories: List<Repository>)
+
+    @Query("DELETE FROM TrendingRepositories")
+    fun clearAllRepositoriesRx()
 }

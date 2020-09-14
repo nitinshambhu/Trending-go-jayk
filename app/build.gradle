@@ -15,6 +15,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -78,7 +79,7 @@ dependencies {
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     //Okhttp3 logger for logging network requests
@@ -99,6 +100,10 @@ dependencies {
 
     // Shimmer for loading animation
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+
+    // RxJava3 only for demonstration purpose
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation "io.reactivex.rxjava3:rxjava:3.0.6"
 
     testImplementation 'junit:junit:4.12'
     testImplementation "io.mockk:mockk:$mockk_version"
