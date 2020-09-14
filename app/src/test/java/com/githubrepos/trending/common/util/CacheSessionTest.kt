@@ -52,11 +52,11 @@ class CacheSessionTest : BaseTest() {
     fun `Starting cache session check timeout method returns true when the time difference is more than timeout`() {
         val feature = mockk<Feature>().apply {
             every { name } returns "Test"
-            every { timeOutInMillis } returns 10
+            every { timeOutInMillis } returns 1000
         }
 
-        every { SystemClock.elapsedRealtime() } returns 40 //current timestamp
-        every { preferences.getLong(any(), any()) } returns 20 //saved timestamp
+        every { SystemClock.elapsedRealtime() } returns 4000 //current timestamp
+        every { preferences.getLong(any(), any()) } returns 2000 //saved timestamp
 
         assertTrue(cacheSession.isTimedOutFor(feature = feature))
 
@@ -69,11 +69,11 @@ class CacheSessionTest : BaseTest() {
     fun `Starting cache session check timeout method returns false when the time difference is less than timeout`() {
         val feature = mockk<Feature>().apply {
             every { name } returns "Test"
-            every { timeOutInMillis } returns 10
+            every { timeOutInMillis } returns 1000
         }
 
-        every { SystemClock.elapsedRealtime() } returns 40 //current timestamp
-        every { preferences.getLong(any(), any()) } returns 35 //saved timestamp
+        every { SystemClock.elapsedRealtime() } returns 4000 //current timestamp
+        every { preferences.getLong(any(), any()) } returns 3500 //saved timestamp
 
         assertFalse(cacheSession.isTimedOutFor(feature = feature))
 
@@ -86,11 +86,28 @@ class CacheSessionTest : BaseTest() {
     fun `Starting cache session check timeout method returns true when the time difference is equal timeout`() {
         val feature = mockk<Feature>().apply {
             every { name } returns "Test"
-            every { timeOutInMillis } returns 10
+            every { timeOutInMillis } returns 1000
         }
 
-        every { SystemClock.elapsedRealtime() } returns 40 //current timestamp
-        every { preferences.getLong(any(), any()) } returns 30 //saved timestamp
+        every { SystemClock.elapsedRealtime() } returns 4000 //current timestamp
+        every { preferences.getLong(any(), any()) } returns 3000 //saved timestamp
+
+        assertTrue(cacheSession.isTimedOutFor(feature = feature))
+
+        verify {
+            preferences.getLong("Test", 0L)
+        }
+    }
+
+    @Test
+    fun `Starting cache session check timeout method returns true when a feature has no timestamp saved`() {
+        val feature = mockk<Feature>().apply {
+            every { name } returns "Test"
+            every { timeOutInMillis } returns 1000
+        }
+
+        every { SystemClock.elapsedRealtime() } returns 400 //current timestamp
+        every { preferences.getLong(any(), any()) } returns 0L // <--- No saved timestamp
 
         assertTrue(cacheSession.isTimedOutFor(feature = feature))
 
