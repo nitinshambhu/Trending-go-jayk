@@ -14,6 +14,9 @@ import kotlinx.android.synthetic.main.layout_shimmer_place_holder_list.view.*
 import org.koin.android.scope.currentScope
 import org.koin.core.module.Module
 
+/**
+ *  Displays list of top trending Repositoires on github
+ */
 class RepositoriesFragment : BaseFragment() {
 
     lateinit var binding: FragmentRepositoriesBinding

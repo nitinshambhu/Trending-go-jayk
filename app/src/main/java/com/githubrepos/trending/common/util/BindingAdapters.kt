@@ -6,6 +6,9 @@ import androidx.databinding.BindingAdapter
 import com.githubrepos.trending.R
 import com.squareup.picasso.Picasso
 
+/**
+ *  Sets the image from url for any ImageView
+ */
 @BindingAdapter("imageUrl")
 fun setImageUrl(view: ImageView, url: String?) {
     Picasso.get().apply {

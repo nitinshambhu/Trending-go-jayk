@@ -9,6 +9,9 @@ import org.koin.dsl.module
 
 private const val PREFERENCES_NAME = "com.github.trending"
 
+/**
+ *  An app module that will help inject all the app level dependencies
+ */
 val appModule = module {
     single { AppDatabase.get(context = androidContext()) }
     single { provideSettingsPreferences(context = androidContext()) }

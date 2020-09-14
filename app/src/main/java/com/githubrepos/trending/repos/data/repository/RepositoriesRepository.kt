@@ -1,5 +1,6 @@
 package com.githubrepos.trending.repos.data.repository
 
+import com.githubrepos.trending.common.DEBUG_TAG
 import com.githubrepos.trending.common.data.ApiResponse
 import com.githubrepos.trending.common.data.DataFetchType
 import com.githubrepos.trending.common.util.*
@@ -33,9 +34,9 @@ class RepositoriesRepository(
 
 
     suspend fun fetchFromRemote(): List<Repository> {
-        "Fetching from remote ... ".logD("Test===")
+        "Fetching from remote ... ".logD(DEBUG_TAG)
         val repositoryList = repoApi.getRepositories()
-        "Fetched list size = ${repositoryList.size}".logD("Test===")
+        "Fetched list size = ${repositoryList.size}".logD(DEBUG_TAG)
         repoDao.clearAllRepositories()
         cacheSession.startTimerFor(Feature.GitHubTrendingRepos)
         repoDao.insertAllRepositories(repositoryList)
@@ -43,7 +44,7 @@ class RepositoriesRepository(
     }
 
     suspend fun fetchFromDatabase(): List<Repository> {
-        "Fetching from Database ... ".logD("Test===")
+        "Fetching from Database ... ".logD(DEBUG_TAG)
         return repoDao.allRepositories()
     }
 

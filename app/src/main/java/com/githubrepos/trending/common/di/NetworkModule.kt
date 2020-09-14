@@ -11,6 +11,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+/**
+ *  A network module that will help inject all the network dependencies across all features/app
+ */
 val networkModule = module {
     factory { provideOkHttpClient() }
     single { provideRetrofit(okHttpClient = get(), context = androidContext()) }
