@@ -17,13 +17,16 @@ class RepositoriesAdapter(context: Context) : BaseExpandableListAdapter() {
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     private val collapseGroupEvent = PublishSubject.create<Int>()
 
-    private var repositoryList: List<Repository> = listOf()
+    private var repositoryList: MutableList<Repository> = mutableListOf()
     private var lastExpandedGroupPosition = -1
 
     fun observeCollapseGroupEvents(): Observable<Int> = collapseGroupEvent
 
     fun setResultList(repoList: List<Repository>) {
-        repositoryList = repoList
+        if (groupCount != 0) {
+            repositoryList.clear()
+        }
+        repositoryList.addAll(repoList)
         notifyDataSetChanged()
     }
 

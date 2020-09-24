@@ -1,5 +1,6 @@
 package com.githubrepos.trending.repos.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -27,4 +28,7 @@ interface RepositoriesDao {
 
     @Query("DELETE FROM TrendingRepositories")
     fun clearAllRepositoriesRx()
+
+    @Query("SELECT * FROM TrendingRepositories")
+    fun allRepositoriesAsLiveData(): LiveData<List<Repository>>
 }

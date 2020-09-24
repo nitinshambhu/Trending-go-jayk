@@ -112,11 +112,14 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation "io.reactivex.rxjava3:rxjava:3.0.6"
 
+    implementation "androidx.work:work-runtime-ktx:2.4.0"
+
     testImplementation 'junit:junit:4.12'
     testImplementation "io.mockk:mockk:$mockk_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines_core_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_core_version"
     testImplementation "android.arch.core:core-testing:1.1.1"
+    testImplementation 'androidx.work:work-runtime-ktx:2.4.0'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation "android.arch.core:core-testing:1.1.1"
