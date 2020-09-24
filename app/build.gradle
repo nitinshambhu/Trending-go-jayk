@@ -38,10 +38,17 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs += [
+                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-Xuse-experimental=kotlinx.coroutines.ObsoleteCoroutinesApi"]
     }
 
     testOptions {
         unitTests.returnDefaultValues = true
+    }
+
+    lintOptions {
+        disable "ObsoleteLintCustomCheck"
     }
 
     configurations.all {
