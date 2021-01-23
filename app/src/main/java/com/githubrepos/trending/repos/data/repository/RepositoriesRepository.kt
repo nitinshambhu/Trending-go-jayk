@@ -11,8 +11,9 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RepositoriesRepository(
+class RepositoriesRepository @Inject constructor(
     private val repoApi: RepositoriesApi,
     private val repoDao: RepositoriesDao,
     private val cacheSession: CacheSession

@@ -9,6 +9,7 @@ import com.githubrepos.trending.common.util.asError
 import com.githubrepos.trending.common.util.asSuccess
 import com.githubrepos.trending.repos.data.Repository
 import com.githubrepos.trending.repos.data.repository.RepositoriesRepository
+import com.githubrepos.trending.repos.ui.koin.RepositoriesViewModel
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -27,7 +28,9 @@ class RepositoriesViewModelTest {
     var coroutineTestRule = CoroutineTestRule()
 
     val repo: RepositoriesRepository = mockk()
-    val viewModel: RepositoriesViewModel = spyk(RepositoriesViewModel(repo))
+    val viewModel: RepositoriesViewModel = spyk(
+        RepositoriesViewModel(repo)
+    )
 
     @After
     fun tearDown() {

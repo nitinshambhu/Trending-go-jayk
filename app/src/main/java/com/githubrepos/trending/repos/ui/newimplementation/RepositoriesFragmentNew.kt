@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.*
 import androidx.lifecycle.Observer
 import com.githubrepos.trending.R
+import com.githubrepos.trending.common.DEBUG_TAG
 import com.githubrepos.trending.common.fragment.BaseFragment
 import com.githubrepos.trending.common.data.LoadingState
+import com.githubrepos.trending.common.util.logD
 import com.githubrepos.trending.databinding.FragmentRepositoriesBinding
 import com.githubrepos.trending.repos.di.repositoriesModule
-import com.githubrepos.trending.repos.ui.RepositoriesAdapter
+import com.githubrepos.trending.repos.ui.koin.RepositoriesAdapter
 import kotlinx.android.synthetic.main.fragment_repositories.*
 import kotlinx.android.synthetic.main.layout_no_internet_connection_error_state.*
 import org.koin.android.scope.currentScope
@@ -42,10 +44,18 @@ class RepositoriesFragmentNew : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        "onViewCreated .... ".logD(DEBUG_TAG)
         binding.uiState = viewModel.uiState
         reposList.setAdapter(repositoriesListAdapter)
         initListeners()
-        viewModel.upDateRepositoriesList()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        "onActivityCreated .... ".logD(DEBUG_TAG)
+        savedInstanceState?.run {
+            viewModel.restoreUIWith(getSerializable("uiState") as Map<String, Boolean>)
+        } ?: viewModel.upDateRepositoriesList()
     }
 
     fun initListeners() {
@@ -57,6 +67,7 @@ class RepositoriesFragmentNew : BaseFragment() {
         )
 
         viewModel.observeRepositoriesFromDatabase().observe(viewLifecycleOwner, Observer {
+            "observeRepositoriesFromDatabase .... setting data".logD(DEBUG_TAG)
             repositoriesListAdapter.setResultList(it)
         })
 
@@ -90,4 +101,9 @@ class RepositoriesFragmentNew : BaseFragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        "onSaveInstanceState .... ".logD(DEBUG_TAG)
+        outState.putSerializable("uiState", viewModel.uiState.asMap())
+    }
 }

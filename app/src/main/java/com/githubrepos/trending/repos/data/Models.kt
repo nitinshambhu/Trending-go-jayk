@@ -43,4 +43,16 @@ data class RepositoriesUiState(
             notifyPropertyChanged(BR.showShimmerEffectVisibility)
             notifyPropertyChanged(BR.listVisibility)
         }
+
+    fun asMap(): HashMap<String, Boolean> {
+        return hashMapOf(
+            "showList" to showList,
+            "showErrorState" to showErrorState
+        )
+    }
+
+    fun fromMap(map : Map<String, Boolean>) {
+        showList = map["showList"] as Boolean
+        showErrorState = map["showErrorState"] as Boolean
+    }
 }

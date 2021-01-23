@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.githubrepos.trending.common.BaseViewModel
+import com.githubrepos.trending.common.DEBUG_TAG
 import com.githubrepos.trending.common.data.LoadingState
+import com.githubrepos.trending.common.util.logD
 import com.githubrepos.trending.repos.data.RepositoriesUiState
 import com.githubrepos.trending.repos.data.repository.RepositoriesRepositoryNew
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +19,14 @@ class RepositoriesViewModelNew(val repo: RepositoriesRepositoryNew) : BaseViewMo
     val loadingStateLiveData: LiveData<LoadingState> = _loadingStateMutableLiveData
 
     val uiState = RepositoriesUiState()
+
+    fun restoreUIWith(map: Map<String, Boolean>?) {
+        "Before restoring uistate = $uiState".logD(DEBUG_TAG)
+        map?.apply {
+            uiState.fromMap(map)
+        }
+        "After restoring uistate = $uiState".logD(DEBUG_TAG)
+    }
 
     fun observeRepositoriesFromDatabase() = repo.fetchFromDatabase()
 
@@ -51,5 +61,10 @@ class RepositoriesViewModelNew(val repo: RepositoriesRepositoryNew) : BaseViewMo
             }
 
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        "onCleared() =....".logD(DEBUG_TAG)
     }
 }

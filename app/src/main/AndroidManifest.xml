@@ -14,8 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".repos.MainActivity"
-            android:configChanges="orientation|screenSize">
+            android:name=".repos.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
